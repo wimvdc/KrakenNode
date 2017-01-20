@@ -1,0 +1,110 @@
+<html>
+   <head>
+		<title>Kraken</title>
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="custom.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script type = "text/javascript" language = "javascript">
+		  var asset = 'XETHZEUR';
+		  var bal = 0, portfollio = 0;
+
+			 $(document).ready(function() {
+				var interval = 1000;
+				setInterval(getEther, interval * 6);
+				setInterval(getBalance, interval * 60);
+				$("#driver").click(function() {
+				  loadAll();
+				});
+				//Initial load
+				loadAll();
+			 });
+			 var getBalance = function(){
+				$.ajax({url: "/balanceWeb", success: function(result){
+					$("#balance").html("€" + result['ZEUR']);
+					$("#portfolio").html("ETH " + result['XETH']);
+					bal = parseFloat(result['ZEUR']);
+					portfollio = parseFloat(result['XETH']);
+				}});
+			}
+			var getEther = function(param){
+				$.ajax({url: "/assetWeb/" + asset, success: function(result){
+					var current = parseFloat(result[asset].c[0]);
+					document.title = '€' + result[asset].c[0].substring(0, 6);
+					$("#low").html('€' + result[asset].l[1].substring(0,6));
+					$("#high").html('€' + result[asset].h[1].substring(0,6));
+					$("#current").html(document.title);
+					var potSub = (current * portfollio) * 0.9974;
+					var potTotal = bal + potSub;
+					potTotal = potTotal + "";
+					$("#potBalance").html("€"+potTotal.substring(0,8));
+				}});
+			}
+
+			 function loadAll(){
+				getBalance();
+				getEther();
+			}
+
+			 function changeAsset(){
+				asset = document.getElementById("asset").value;
+				loadAll();
+			 }
+		  </script>
+   </head>
+
+   <body>
+     <div class="container">
+     <div class="row">
+    	  <form class="form-horizontal">
+    		  <div class="form-group">
+    			<label for="current" class="col-sm-2 control-label">Current</label>
+    			<div class="col-sm-10 col-md-4">
+    			  <div class="control-value" id="current"></div>
+    			</div>
+    		  </div>
+    		  <div class="form-group">
+    			<label for="high" class="col-sm-2 control-label">High</label>
+    			<div class="col-sm-10 col-md-4">
+    			  <div class="control-value"  id="high"></div>
+    			</div>
+    		  </div>
+    		   <div class="form-group">
+    			<label for="low" class="col-sm-2 control-label">Low</label>
+    			<div class="col-sm-10 col-md-4">
+    			  <div class="control-value"  id="low"></div>
+    			</div>
+    		  </div>
+    		  <div class="form-group">
+    			<label for="balance" class="col-sm-2 control-label">Balance</label>
+    			<div class="col-sm-10 col-md-4">
+    			  <div class="control-value"  id="balance"></div>
+    			</div>
+    		  </div>
+    		  <div class="form-group">
+    			<label for="potBalance" class="col-sm-2 control-label">Potential balance</label>
+    			<div class="col-sm-10 col-md-4">
+    			  <div class="control-value"  id="potBalance"></div>
+    			</div>
+    		  </div>
+    		   <div class="form-group">
+    			<label for="portfolio" class="col-sm-2 control-label">Portfolio</label>
+    			<div class="col-sm-10 col-md-4">
+    			  <div class="control-value"  id="portfolio"></div>
+    			</div>
+    		  </div>
+    		   <div class="form-group">
+    			<div class="col-sm-offset-2 col-sm-10">
+    				<select id="asset" onchange="changeAsset()">
+    					<option value="XETHZEUR" selected>Ether - EUR</option>
+    					<option value="XXBTZEUR">Bitcoin - EUR</option>
+    				</select>
+    			</div>
+    		  </div>
+    		</form>
+      </div>
+      </div>
+   </body>
+</html>

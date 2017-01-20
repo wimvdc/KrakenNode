@@ -1,0 +1,19 @@
+{
+  "name": "kraken",
+  "version": "1.0.0",
+  "description": "no",
+  "main": "kraken.js",
+  "dependencies": {
+    "kraken-api": "^0.1.7",
+    "pebble-api": "^0.2.2",
+    "sse": "^0.0.6",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node kraken.js"
+  },
+  "author": "Wim",
+  "license": "ISC"
+}

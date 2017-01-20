@@ -1,0 +1,19 @@
+@media (min-width: 768px){
+	.control-value {
+		padding-top: 7px;
+		margin-bottom: 0;
+	}
+
+}
+
+@media (max-width: 768px){
+	.form-horizontal{
+		font-size: 22px;
+		margin: 10px;
+	}
+	button{
+		font-size: 22px !important;
+		background: midnightblue !important;
+		color: white !important;
+	}
+}
