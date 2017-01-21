@@ -3,7 +3,7 @@ var express = require('express')
   , app = express();
 var argv = require('minimist')(process.argv.slice(2));
 console.log(argv);
-console.lof(process.env);
+console.log(process.env);
 var kraken = new KrakenClient(process.env.KRAKEN_PUBLIC_KEY || argv.KRAKEN_API_KEY,process.env.KRAKEN_PUBLIC_KEY || argv.KRAKEN_PUBLIC_KEY);
 
 app.use(express.static(__dirname+'/public'));
