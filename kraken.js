@@ -1,7 +1,8 @@
 var KrakenClient = require('kraken-api');
 var express = require('express')
   , app = express();
-var kraken = new KrakenClient('xxx', 'xxx');
+var argv = require('minimist')(process.argv.slice(2));
+var kraken = new KrakenClient(argv.KRAKEN_API_KEY, argv.KRAKEN_PUBLIC_KEY);
 
 app.use(express.static(__dirname+'/public'));
 
