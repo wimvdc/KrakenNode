@@ -1,0 +1,9 @@
+{
+    "name": "Kraken.com Node",
+    "description": "Creates simple page and API for Kraken.com",
+    "website": "https://github.com/wimvdc/KrakenNode",
+    "repository": "https://github.com/wimvdc/KrakenNode",
+    "keywords": [
+        "kraken.com node"
+    ]
+}
